@@ -1,0 +1,29 @@
+{
+  "name": "megajs-cli",
+  "version": "0.0.0",
+  "description": "MEGAJS CLI",
+  "main": "index.js",
+  "bin": {
+    "megajs": "./bin/cmd.js"
+  },
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qgustavor/megajs-cli.git"
+  },
+  "preferGlobal": true,
+  "author": "Gustavo Rodrigues (https://qgustavor.tk)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qgustavor/megajs-cli/issues"
+  },
+  "homepage": "https://github.com/qgustavor/megajs-cli#readme",
+  "devDependencies": {
+    "standard": "^8.6.0"
+  },
+  "dependencies": {
+    "megajs": "^0.8.1"
+  }
+}
