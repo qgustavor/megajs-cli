@@ -22,13 +22,13 @@ But there is a difference: instead of having multiple executables this tool just
 * `--u` `--username` `--email`: account email
 * `--p` `--password`: account password
 * `--no-ask-password`: don't prompt for a password
-* `--proxy`: proxy server to use. More information can be found in request documentation: https://www.npmjs.com/package/request/#proxies
+* `--proxy`: proxy server to use, more info on [request documentation]( https://www.npmjs.com/package/request/#proxies)
 * `--speed-limit <speed>`: limit download/upload speed, if no unit is specified it defaults to KiB/s 
 * `--config <path>`: load configuration from a file
 * `--ignore-config-file`: ignore user's `.megajsrc`
 * `--version`: show package info then exits
 
-### **dl**: download
+### *dl*: download
 
 Downloads shared files and folders
 
@@ -48,26 +48,26 @@ Supported arguments:
 How to download single files in folders:
 
 ```bash
-$ megajs ls --human --long --header https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing
+$ megajs ls --human --long --header "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing"
 ===================================================================================
 Handle      Owner       T          Size Mod. Date           Filename
 ===================================================================================
 Ql0jyZIR    V0xJ8QbgnD0 0       1.0 KiB 1970-01-01 00:00:00 example-1.txt
 QwFnHI4D    V0xJ8QbgnD0 0       2.0 KiB 1970-01-01 00:00:00 example-2.txt
 
-$ megajs dl https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing!Ql0jyZIR
+$ megajs dl "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing!Ql0jyZIR"
 example-1.txt was downloaded
 ```
 
 The URL above is only supported to link to sub-folders in the web client, but we extend it to files. More info see help on [the list command](#ls-list).
 
-### **put**: upload
+### *put*: upload
 
 Downloads shared files and folders
 
 ```bash
 # downloads a test file to the current folder
-megajs dl https://mega.nz/#!N90lwbqL!MkbqwNRYPF4uFCN35zetE3PHOzP-NQc20hasZxPg5k8
+megajs dl "https://mega.nz/#!N90lwbqL!MkbqwNRYPF4uFCN35zetE3PHOzP-NQc20hasZxPg5k8"
 ```
 
 Supported arguments:
@@ -78,7 +78,7 @@ Supported arguments:
 * `--no-progress`: do not report progress
 * `--disable-previews`: disable automatic thumbnails and preview images generation
 
-### **ls**: list
+### *ls*: list
 
 Lists files in folders
 
@@ -90,7 +90,7 @@ megajs ls
 megajs ls /Root
 
 # list files from a shared folder
-megajs ls https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing
+megajs ls "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing"
 ```
 
 Supported arguments:
@@ -104,21 +104,21 @@ Supported arguments:
 In order to keep compatibility sharing functions are handled by this command:
 
 * `--export`, `-e`: export the selected file or folder
-* `--key`: folder key (22 character string ending with A, Q, g or w)
+* `--key`: folder key (22 character string ending with A, Q, g or w)  
   Keys don't need to be random: use when your folder contents are meant to be public and you want nicer URLs.
 
-### **mkdir**
+### *mkdir*
 
 Creates a folder
 
 ```bash
-megajs mkdir /Root/Example
+megajs mkdir "/Root/Example"
 megajs mkdir "/Root/Example Folder"
 ```
 
 Creating a folder in contacts isn't supported (at least it isn't tested).
 
-### **copy**
+### *copy*
 
 "Copies" an local directory to a remote one, or vice-versa.
 
