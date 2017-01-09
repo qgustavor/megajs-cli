@@ -19,13 +19,13 @@ But there is a difference: instead of having multiple executables this tool just
 
 ### Arguments for all commands:
 
-* `--u` `--username` `--email`: account email
-* `--p` `--password`: account password
-* `--no-ask-password`: don't prompt for a password
-* `--proxy`: proxy server to use, more info on [request documentation]( https://www.npmjs.com/package/request/#proxies)
+* `-u --username <email>`: account email
+* `-p --password <password>`: account password
+* `--no-ask-password`: don't prompt interactively for a password
+* `--proxy <url>`: proxy server to use, more info on [request documentation]( https://www.npmjs.com/package/request/#proxies)
 * `--speed-limit <speed>`: limit download/upload speed, if no unit is specified it defaults to KiB/s 
 * `--config <path>`: load configuration from a file
-* `--ignore-config-file`: ignore user's `.megajsrc`
+* `--ignore-config-file`: ignore user's .megajsrc
 * `--version`: show package info then exits
 
 ### *dl*: download
@@ -42,7 +42,8 @@ If a folder is specified each file will be downloaded if not exists.
 
 Supported arguments:
 
-* `--path`: directory to download to, defaults to current working directory, `-` for stdout
+* `--path <dir>`: directory to download to, defaults to current working directory, use `-` for stdout
+* `--connections <number>`: the number of parallel connections, defaults to 4
 * `--no-progress`: do not report progress
 
 How to download single files in folders:
@@ -63,24 +64,26 @@ The URL above is only supported to link to sub-folders in the web client, but we
 
 ### *put*: upload
 
-Downloads shared files and folders
+Uploads files to MEGA
 
 ```bash
 # downloads a test file to the current folder
-megajs dl "https://mega.nz/#!N90lwbqL!MkbqwNRYPF4uFCN35zetE3PHOzP-NQc20hasZxPg5k8"
+megajs put test.txt
 ```
 
 Supported arguments:
 
-* `--path`: directory to upload to, defaults to root directory
+* `--path <dir>`: directory to upload to, defaults to root directory
 * `--preview <path>`: upload custom preview image (JPEG 75%, maximum width and height = 1000px)
 * `--thumbnail <path>`: upload custom thumbnail image (JPEG 70%, 120x120 px)
 * `--no-progress`: do not report progress
 * `--disable-previews`: disable automatic thumbnails and preview images generation
 
+Note that the underlining library don't support parallel connections when uploading, but pull requests adding this feature are appreciated.
+
 ### *ls*: list
 
-Lists files in folders
+Lists files in remote folders
 
 ```bash
 # list all files from a user
@@ -95,21 +98,21 @@ megajs ls "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing"
 
 Supported arguments:
 
-* `--human`, `-h`: format size values instead of returning bytes
-* `--long`, `-l`: long format, showing node handle, node owner, node type, size, modification date, then filename
-* `--header`, `-h`: prepend an header to the result
-* `--names`, `-n`: only show file names, equivalent to UNIX's ls `--almost-all`
-* `--recursive`, `-R`: list all files and folders recursively, default when no path specified
+* `-h --human`: format size values instead of returning bytes
+* `-l --long`: long format, showing node handle, node owner, node type, size, modification date, then filename
+* `-h --header`: add an header to the result
+* `-n --names`: only show file names, equivalent to UNIX's ls `--almost-all`
+* `-R --recursive`: list all files and folders recursively, default when no path specified
 
 In order to keep compatibility sharing functions are handled by this command:
 
-* `--export`, `-e`: export the selected file or folder
-* `--key`: folder key (22 character string ending with A, Q, g or w)  
+* `-e --export`: export the selected file or folder
+* `-k --key`: exported folder key (22 character string ending with A, Q, g or w)  
   Keys don't need to be random: use when your folder contents are meant to be public and you want nicer URLs.
 
 ### *mkdir*
 
-Creates a folder
+Creates a folder in MEGA
 
 ```bash
 megajs mkdir "/Root/Example"
@@ -120,23 +123,31 @@ Creating a folder in contacts isn't supported (at least it isn't tested).
 
 ### *copy*
 
-"Copies" an local directory to a remote one, or vice-versa.
+*Copies* an local directory to a remote one, or vice-versa.
 
 ```bash
 # Sync remote with local
 megajs copy --local LocalFolder --remote /Root/RemoteFolder
 # Sync local with remote
 megajs copy --local LocalFolder --remote /Root/RemoteFolder --download
+# Alternative command syntax
+megajs copy LocalFolder /Root/RemoteFolder
 ```
 
 Supported arguments:
 
-* `-n`, `--dryrun`: don't download or upload files, instead just print what will be done
+* `-l --local <path>`: local path
+* `-r --remote <path>`: remote path
+* `-n --dryrun`: don't download or upload files, instead just print what will be done
 * `--no-progress`: disable progress reporting
 * `--disable-previews`: disable automatic thumbnails and preview images generation
 
 ## Not supported commands:
 
-Registration (megareg) and quota commands (megadf) aren't supported because the underlining library doesn't support it.
+Registration (megareg) and quota commands (megadf) aren't supported because the underlining library doesn't support it. Would be great if someone send a pull request adding those features...
 
-File and folder removing (megarm) and downloading files where logged in (megaget) aren't supported by now because the main focus by now is implementing functions that may help MEGA scripting, and seems those functions are less used on scripting than the others.
+File and folder removing (megarm) and downloading files where logged in (megaget) aren't supported *by now* because the main focus by now is implementing functions that may help MEGA scripting, and seems those functions are less used on scripting than the others.
+
+## Credits
+
+Part of the CLI code was based on [Firebase CLI](https://github.com/firebase/firebase-tools) by Firebase and [WebTorrent CLI](https://github.com/feross/webtorrent-cli) by WebTorrent, LLC, both MIT Licensed.
