@@ -2,7 +2,7 @@
 
 The CLI version of [MEGAJS](https://www.npmjs.com/package/megajs), inspired by [megatools](https://megatools.megous.com/man/megatools.html).
 
-**Work in progress**: code *isn't* working, documentation exists only as a implementation guide.
+**Work in progress**: download, upload, list and mkdir should be working, but they're not fully tested. Also the following features aren't implemented: automatic thumbnail generation, loading configuration from a file and caching.
 
 ## Installation:
 
@@ -11,9 +11,9 @@ The CLI version of [MEGAJS](https://www.npmjs.com/package/megajs), inspired by [
 npm install -g megajs-cli
 ```
 
-## Commands:
+## Usage:
 
-To make this tool easier to MEGA users the commands are the same of megatools. Arguments are the same. If implementation may differ open a issue.
+To make this tool easier to MEGA users the commands are the same of megatools, same with the arguments. Results differ: if it breaks some automation script open a issue.
 
 But there is a difference: instead of having multiple executables this tool just have one. Instead of "mega*command*" use "megajs *command*". Example: "megajs dl" instead of "megadl". You can use also the longer name, shown below, like "megajs download".
 
@@ -22,7 +22,7 @@ But there is a difference: instead of having multiple executables this tool just
 * `-u --username <email>`: account email
 * `-p --password <password>`: account password
 * `--no-ask-password`: don't prompt interactively for a password
-* `--proxy <url>`: proxy server to use, more info on [request documentation]( https://www.npmjs.com/package/request/#proxies)
+* `--proxy <url>`: proxy server to use, more info on [request documentation](https://www.npmjs.com/package/request/#proxies)
 * `--speed-limit <speed>`: limit download/upload speed, if no unit is specified it defaults to KiB/s 
 * `--config <path>`: load configuration from a file
 * `--ignore-config-file`: ignore user's .megajsrc
@@ -43,24 +43,26 @@ If a folder is specified each file will be downloaded if not exists.
 Supported arguments:
 
 * `--path <dir>`: directory to download to, defaults to current working directory, use `-` for stdout
-* `--connections <number>`: the number of parallel connections, defaults to 4
+* `--connections <num>`: the number of parallel connections, defaults to 4
 * `--no-progress`: do not report progress
 
 How to download single files in folders:
 
 ```bash
 $ megajs ls --human --long --header "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing"
-===================================================================================
-Handle      Owner       T          Size Mod. Date           Filename
-===================================================================================
-Ql0jyZIR    V0xJ8QbgnD0 0       1.0 KiB 1970-01-01 00:00:00 example-1.txt
-QwFnHI4D    V0xJ8QbgnD0 0       2.0 KiB 1970-01-01 00:00:00 example-2.txt
+=============================================================
+Handle   Owner    T    Size Mod. Date           Filename
+=============================================================
+Ql0jyZIR tZNhBYDl 0 1.0 KiB 1970-01-01 00:00:00 example-1.txt
+QwFnHI4D tZNhBYDl 0 2.0 KiB 1970-01-01 00:00:00 example-2.txt
 
 $ megajs dl "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing!Ql0jyZIR"
 example-1.txt was downloaded
 ```
 
 The URL above is only supported to link to sub-folders in the web client, but we extend it to files. More info see help on [the list command](#ls-list).
+
+*Note:* is possible that the current speed limit implementation it will only reduce file writing speed, not download speed. This feature wasn't well tested and implemented yet.
 
 ### *put*: upload
 
@@ -75,7 +77,7 @@ Supported arguments:
 
 * `--path <dir>`: directory to upload to, defaults to root directory
 * `--preview <path>`: upload custom preview image (JPEG 75%, maximum width and height = 1000px)
-* `--thumbnail <path>`: upload custom thumbnail image (JPEG 70%, 120x120 px)
+* `--thumbnail <path>`: upload custom thumbnail image (JPEG 70%, 120x120px)
 * `--no-progress`: do not report progress
 * `--disable-previews`: disable automatic thumbnails and preview images generation
 
@@ -101,13 +103,13 @@ Supported arguments:
 * `-h --human`: format size values instead of returning bytes
 * `-l --long`: long format, showing node handle, node owner, node type, size, modification date, then filename
 * `-h --header`: add an header to the result
-* `-n --names`: only show file names, equivalent to UNIX's ls `--almost-all`
+* `-n --names`: show file names instead of full paths and hide folders
 * `-R --recursive`: list all files and folders recursively, default when no path specified
 
 In order to keep compatibility sharing functions are handled by this command:
 
 * `-e --export`: export the selected file or folder
-* `-k --key`: exported folder key (22 character string ending with A, Q, g or w)  
+* `-k --key <key>`: exported folder key (22 character string ending with A, Q, g or w)  
   Keys don't need to be random: use when your folder contents are meant to be public and you want nicer URLs.
 
 ### *mkdir*
@@ -119,7 +121,7 @@ megajs mkdir "/Root/Example"
 megajs mkdir "/Root/Example Folder"
 ```
 
-Creating a folder in contacts isn't supported (at least it isn't tested).
+Creating a folder in contacts isn't supported.
 
 ### *copy*
 
