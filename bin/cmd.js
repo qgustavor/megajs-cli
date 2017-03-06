@@ -32,13 +32,15 @@ require('../lib/commands/upload')(program)
 require('../lib/commands/list')(program)
 require('../lib/commands/mkdir')(program)
 require('../lib/commands/copy')(program)
+require('../lib/commands/thumbnail')(program)
+require('../lib/commands/preview')(program)
 
 // default command
 program.action((cmd) => {
   console.log('> MEGAJS')
   console.log('> %s is not a valid command', cmd)
   program.help()
-  process.exit()1p
+  process.exit()
 })
 
 // init process
