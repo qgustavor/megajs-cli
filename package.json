@@ -27,7 +27,7 @@
     "commander": "^2.9.0",
     "fs-extra": "^1.0.0",
     "inquirer": "^2.0.0",
-    "megajs": "^0.9.1",
+    "megajs": "^0.10.0",
     "progress-stream": "^1.2.0",
     "sanitize-filename": "^1.6.1",
     "shaper": "0.0.5",
