@@ -62,7 +62,7 @@ example-1.txt was downloaded
 
 The URL above is only supported to link to sub-folders in the web client, but we extend it to files. More info see help on [the list command](#ls-list).
 
-*Note:* is possible that the current speed limit implementation it will only reduce file writing speed, not download speed. This feature wasn't well tested and implemented yet.
+*Note:* is possible that the current speed limit implementation will only reduce file writing speed, not download speed. This feature wasn't well tested and implemented yet.
 
 ### *put*: upload
 
@@ -143,6 +143,19 @@ Supported arguments:
 * `-n --dryrun`: don't download or upload files, instead just print what will be done
 * `--no-progress`: disable progress reporting
 * `--disable-previews`: disable automatic thumbnails and preview images generation
+
+### *thumbnail* / *preview*
+
+Uploads a thumbnail or preview image to a already uploaded file.
+
+```bash
+# Upload a thumbnail image
+megajs thumbnail /Root/RemoteFile.ext thumbnail-image.jpg
+# Upload a preview image
+megajs preview /Root/RemoteFile.ext preview-image.jpg
+```
+
+The thumbnail and preview images follow the same rules as in the [put command](#put-upload). Any file accepts thumbnails and preview images, so be creative.
 
 ## Not supported commands:
 
