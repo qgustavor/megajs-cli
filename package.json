@@ -1,6 +1,6 @@
 {
   "name": "megajs-cli",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "MEGAJS CLI",
   "main": "index.js",
   "bin": {
