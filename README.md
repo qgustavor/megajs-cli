@@ -123,27 +123,6 @@ megajs mkdir "/Root/Example Folder"
 
 Creating a folder in contacts isn't supported.
 
-### *copy*
-
-*Copies* an local directory to a remote one, or vice-versa.
-
-```bash
-# Sync remote with local
-megajs copy --local LocalFolder --remote /Root/RemoteFolder
-# Sync local with remote
-megajs copy --local LocalFolder --remote /Root/RemoteFolder --download
-# Alternative command syntax
-megajs copy LocalFolder /Root/RemoteFolder
-```
-
-Supported arguments:
-
-* `-l --local <path>`: local path
-* `-r --remote <path>`: remote path
-* `-n --dryrun`: don't download or upload files, instead just print what will be done
-* `--no-progress`: disable progress reporting
-* `--disable-previews`: disable automatic thumbnails and preview images generation
-
 ### *thumbnail* / *preview*
 
 Uploads a thumbnail or preview image to a already uploaded file.
@@ -161,7 +140,7 @@ The thumbnail and preview images follow the same rules as in the [put command](#
 
 Registration (megareg) and quota commands (megadf) aren't supported because the underlining library doesn't support it. Would be great if someone send a pull request adding those features...
 
-File and folder removing (megarm) and downloading files where logged in (megaget) aren't supported *by now* because the main focus by now is implementing functions that may help MEGA scripting, and seems those functions are less used on scripting than the others.
+File and folder removing (megarm), copying files (megacopy) and downloading files where logged in (megaget) aren't supported *by now* because the main focus by now is implementing functions that may help MEGA scripting, and seems those functions are less used on scripting than the others.
 
 ## Credits
 
