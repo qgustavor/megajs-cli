@@ -38,13 +38,14 @@ megajs dl <shared file or folder>
 megajs dl https://mega.nz/#!N90lwbqL!MkbqwNRYPF4uFCN35zetE3PHOzP-NQc20hasZxPg5k8
 ```
 
-If a folder is specified each file will be downloaded if not exists.
+If a folder is specified each file will be downloaded. If the download file exists it will not be replaced.
 
 Supported arguments:
 
 * `--path <dir>`: directory to download to, defaults to current working directory, use `-` for stdout
 * `--connections <num>`: the number of parallel connections, defaults to 4
 * `--no-progress`: do not report progress
+* `-c --continue`: continue an interrupted download
 
 How to download single files in folders:
 
