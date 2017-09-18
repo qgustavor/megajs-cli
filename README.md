@@ -47,23 +47,32 @@ Supported arguments:
 * `--no-progress`: do not report progress
 * `-c --continue`: continue an interrupted download
 
-How to download single files in folders:
+You can download single files in folders by specifing the file handle:
 
 ```bash
-$ megajs ls --human --long --header "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing"
+$ megajs ls --human --long --header "https://mega.nz/#F!ExampleE!xampleExampleExampleEx"
 =============================================================
 Handle   Owner    T    Size Mod. Date           Filename
 =============================================================
-Ql0jyZIR tZNhBYDl 0 1.0 KiB 1970-01-01 00:00:00 example-1.txt
-QwFnHI4D tZNhBYDl 0 2.0 KiB 1970-01-01 00:00:00 example-2.txt
+HandleAA OwnerID 0 1.0 KiB 1970-01-01 00:00:00 example-1.txt
+HandleZZ OwnerID 0 2.0 KiB 1970-01-01 00:00:00 example-2.txt
 
-$ megajs dl "https://mega.nz/#F!98NDUTDK!3GatsuNoLion-IsAmazing!Ql0jyZIR"
+$ megajs dl "https://mega.nz/#F!ExampleE!xampleExampleExampleEx!HandleAA"
 example-1.txt was downloaded
 ```
 
-The URL above is only supported to link to sub-folders in the web client, but we extend it to files. More info see help on [the list command](#ls-list).
+You can also use regular expressions and glob expressions, [like wget](https://www.gnu.org/software/wget/manual/wget.html#Recursive-Accept_002fReject-Options-1):
 
-*Note:* is possible that the current speed limit implementation will only reduce file writing speed, not download speed. This feature wasn't well tested and implemented yet.
+* `-A acclist --accept acclist`: *only* download files which match the specified glob expression
+* `-R rejlist --reject rejlist`: *don't* download files which match the specified glob expression
+* `--accept-regex urlregex`: *only* download files which match the specified regular expression
+* `--reject-regex urlregex`: *don't* download files which match the specified regular expression
+* `--ignore-case`: ignore case when matching files
+
+```bash
+$ megajs dl "https://mega.nz/#F!ExampleE!xampleExampleExampleEx" -A "*1.txt"
+example-1.txt was downloaded
+```
 
 ### *put*: upload
 
@@ -137,12 +146,16 @@ megajs preview /Root/RemoteFile.ext preview-image.jpg
 
 The thumbnail and preview images follow the same rules as in the [put command](#put-upload). Any file accepts thumbnails and preview images, so be creative.
 
-## Not supported commands:
+## Known issues:
 
-Registration (megareg) and quota commands (megadf) aren't supported because the underlining library doesn't support it. Would be great if someone send a pull request adding those features...
+Registration (megareg) and quota commands (megadf) aren't supported because the underlining library doesn't support it. Would be great if someone send a pull request adding those features.
 
 File and folder removing (megarm), copying files (megacopy) and downloading files where logged in (megaget) aren't supported *by now* because the main focus by now is implementing functions that may help MEGA scripting, and seems those functions are less used on scripting than the others.
 
+Maybe the current speed limit implementation will only reduce file writing speed, not download speed: this feature wasn't well tested and implemented yet.
+
+This application don't validates images passed to preview and thumbnail commands. Try to follow the specifications for the images to avoid bugs in other clients.
+
 ## Credits
 
-Part of the CLI code was based on [Firebase CLI](https://github.com/firebase/firebase-tools) by Firebase and [WebTorrent CLI](https://github.com/feross/webtorrent-cli) by WebTorrent, LLC, both MIT Licensed.
+Part of the CLI code was inspired on [Firebase CLI](https://github.com/firebase/firebase-tools) by Firebase and [WebTorrent CLI](https://github.com/feross/webtorrent-cli) by WebTorrent, LLC, both MIT Licensed.
