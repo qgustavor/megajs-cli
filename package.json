@@ -7,13 +7,17 @@
     "megajs": "./bin/cmd.js"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "pkg": "pkg . --out-dir build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qgustavor/megajs-cli.git"
   },
   "preferGlobal": true,
+  "pkg": {
+    "scripts": "lib/**/*.js"
+  },
   "author": "Gustavo Rodrigues (https://qgustavor.tk)",
   "license": "MIT",
   "bugs": {
@@ -21,6 +25,7 @@
   },
   "homepage": "https://github.com/qgustavor/megajs-cli#readme",
   "devDependencies": {
+    "pkg": "^4.2.5",
     "standard": "^8.6.0"
   },
   "dependencies": {
