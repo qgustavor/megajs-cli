@@ -2,7 +2,15 @@
 
 const pkg = require('../package.json')
 const updateNotifier = require('update-notifier')({ pkg })
-updateNotifier.notify({ defer: true })
+
+if (updateNotifier.update) {
+  updateNotifier.notify({
+    defer: true,
+    message: process.pkg && `Update available: ${updateNotifier.update.current} → ${updateNotifier.update.latest}
+Download it here:
+https://github.com/qgustavor/megajs-cli/releases/latest`
+  })
+}
 
 process.title = 'MEGAJS'
 
