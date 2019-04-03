@@ -6,10 +6,7 @@ The CLI version of [MEGAJS](https://www.npmjs.com/package/megajs), inspired by [
 
 ## Installation:
 
-```bash
-# Install Node: https://nodejs.org/
-npm install -g megajs-cli
-```
+You can [download a standalone binary](https://github.com/qgustavor/megajs-cli/releases/latest) or install from NPM using `npm install -g megajs-cli`.
 
 ## Usage:
 
