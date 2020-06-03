@@ -1,11 +1,5 @@
-# Test against the latest version of this Node.js version
-environment:
-  nodejs_version: "8"
-
 # Install scripts. (runs after repo cloning)
 install:
-  # Get the latest stable version of Node.js or io.js
-  - ps: Install-Product node $env:nodejs_version
   # Install modules
   - npm install
   # Build binaries
