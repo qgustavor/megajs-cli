@@ -1,28 +1,22 @@
 # MEGAJS CLI
 
-The CLI version of [MEGAJS](https://www.npmjs.com/package/megajs), inspired by [megatools](https://megatools.megous.com/man/megatools.html).
+The CLI version of [MEGAJS](https://www.npmjs.com/package/megajs), inspired by [megatools](https://megatools.megous.com/).
 
-**Work in progress**: download, upload, list and mkdir should be working, but they're not fully tested. Also the following features aren't implemented: automatic thumbnail generation, loading configuration from a file and caching.
+**Development stopped**: megatools support new accounts and way more features, this tool is not needed. It will be kept was a way to test MEGAJS with real servers and as a way to use custom thumbnail images. Issues will be fixed but *no* new features will be implemented.
 
 ## Installation:
 
-You can [download a standalone binary](https://github.com/qgustavor/megajs-cli/releases/latest) or install from NPM using `npm install -g megajs-cli`.
+Install it using `npm install -g megajs-cli` or `pnpm add --global megajs-cli` or [download a pre-built binary](https://github.com/qgustavor/megajs-cli/releases).
 
 ## Usage:
 
-To make this tool easier to MEGA users the commands are the same of megatools, same with the arguments. Results differ: if it breaks some automation script open a issue.
-
-But there is a difference: instead of having multiple executables this tool just have one. Instead of "mega*command*" use "megajs *command*". Example: "megajs dl" instead of "megadl". You can use also the longer name, shown below, like "megajs download".
+To make this tool easier to MEGA users the commands are the same of megatools, same with the arguments: just replace "megatools" with "megajs".
 
 ### Arguments for all commands:
 
 * `-u --username <email>`: account email
 * `-p --password <password>`: account password
 * `--no-ask-password`: don't prompt interactively for a password
-* `--proxy <url>`: proxy server to use, more info on [request documentation](https://www.npmjs.com/package/request/#proxies)
-* `--speed-limit <speed>`: limit download/upload speed, if no unit is specified it defaults to KiB/s 
-* `--config <path>`: load configuration from a file
-* `--ignore-config-file`: ignore user's .megajsrc
 * `--version`: show package info then exits
 
 ### *dl*: download
@@ -43,6 +37,7 @@ Supported arguments:
 * `--connections <num>`: the number of parallel connections, defaults to 4
 * `--no-progress`: do not report progress
 * `-c --continue`: continue an interrupted download
+* `--allow-unsafe-http`: download files using unsafe HTTP
 
 You can download single files in folders by specifing the file handle:
 
@@ -71,6 +66,10 @@ $ megajs dl "https://mega.nz/#F!ExampleE!xampleExampleExampleEx" -A "*1.txt"
 example-1.txt was downloaded
 ```
 
+Using unsafe HTTP may leak information about what's being downloaded to network administrators/ISP if the content being downloaded is already known or if the content was uploaded from a vulnerable MEGA client using weak encryption keys (those exist and are popular), but using it can reduce issues with MEGA servers since that's the default behavior in other clients.
+
+Limiting the number of connections to 1 will disable download chunking which is known to reduce issues with MEGA servers and, sometimes, result in faster downloads than the default 4 connections.
+
 ### *put*: upload
 
 Uploads files to MEGA
@@ -86,9 +85,11 @@ Supported arguments:
 * `--preview <path>`: upload custom preview image (JPEG 75%, maximum width and height = 1000px)
 * `--thumbnail <path>`: upload custom thumbnail image (JPEG 70%, 120x120px)
 * `--no-progress`: do not report progress
-* `--disable-previews`: disable automatic thumbnails and preview images generation
+* `--allow-unsafe-http`: upload files using unsafe HTTP
 
 Note that the underlining library don't support parallel connections when uploading, but pull requests adding this feature are appreciated.
+
+Using unsafe HTTP may leak information about what's being uploaded to network administrators/ISP if the encryption gets leaked or published, but using it can reduce issues with MEGA servers since that's the default behavior in other clients.
 
 ### *ls*: list
 
@@ -142,16 +143,6 @@ megajs preview /Root/RemoteFile.ext preview-image.jpg
 ```
 
 The thumbnail and preview images follow the same rules as in the [put command](#put-upload). Any file accepts thumbnails and preview images, so be creative.
-
-## Known issues:
-
-Registration (megareg) and quota commands (megadf) aren't supported because the underlining library doesn't support it. Would be great if someone send a pull request adding those features.
-
-File and folder removing (megarm), copying files (megacopy) and downloading files where logged in (megaget) aren't supported *by now* because the main focus by now is implementing functions that may help MEGA scripting, and seems those functions are less used on scripting than the others.
-
-Maybe the current speed limit implementation will only reduce file writing speed, not download speed: this feature wasn't well tested and implemented yet.
-
-This application don't validates images passed to preview and thumbnail commands. Try to follow the specifications for the images to avoid bugs in other clients.
 
 ## Credits
 

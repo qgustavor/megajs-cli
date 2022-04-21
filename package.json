@@ -25,13 +25,13 @@
   },
   "homepage": "https://github.com/qgustavor/megajs-cli#readme",
   "devDependencies": {
-    "pkg": "^4.4.0",
-    "standard": "^14.3.4"
+    "pkg": "^4.4.9",
+    "standard": "^16.0.4"
   },
   "dependencies": {
     "fs-extra": "^1.0.0",
     "inquirer": "^2.0.0",
-    "megajs": "^0.17.0",
+    "megajs": "^1.0.3",
     "minimatch": "^3.0.4",
     "progress-stream": "^1.2.0",
     "sanitize-filename": "^1.6.1",
