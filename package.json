@@ -36,7 +36,6 @@
     "progress-stream": "^1.2.0",
     "sanitize-filename": "^1.6.1",
     "shaper": "0.0.5",
-    "update-notifier": "^4.1.0",
     "yargs": "^15.3.1"
   }
 }

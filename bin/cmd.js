@@ -1,17 +1,5 @@
 #!/usr/bin/env node
 
-const pkg = require('../package.json')
-const updateNotifier = require('update-notifier')({ pkg })
-
-if (updateNotifier.update) {
-  updateNotifier.notify({
-    defer: true,
-    message: process.pkg && `Update available: ${updateNotifier.update.current} → ${updateNotifier.update.latest}
-Download it here:
-https://github.com/qgustavor/megajs-cli/releases/latest`
-  })
-}
-
 process.title = 'MEGAJS'
 
 // The require('yargs').argv getter have side effects
