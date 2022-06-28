@@ -10,5 +10,4 @@ require('yargs') // eslint-disable-line no-unused-expressions
   .recommendCommands()
   .demandCommand(1, 'You need at least one command before moving on')
   .help()
-  .epilogue('for more information check ' + pkg.homepage)
   .argv
