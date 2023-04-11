@@ -12,10 +12,13 @@ Install it using `npm install -g megajs-cli` or `pnpm add --global megajs-cli` o
 
 To make this tool easier to MEGA users the commands are the same of megatools, same with the arguments: just replace "megatools" with "megajs".
 
+You can set options by creating a `megajs-cli.json` file in the current directory, or in any parent diretory, or in your user directory; containing the options in JSON. Example: `{"username": "example@example.com", "password": "correct horse battery staple"}`
+
 ### Arguments for all commands:
 
 * `-u --username <email>`: account email
 * `-p --password <password>`: account password
+* `--code <code>`: account's second factor code (will be prompted if required and not provided)
 * `--no-ask-password`: don't prompt interactively for a password
 * `--version`: show package info then exits
 
@@ -69,6 +72,8 @@ example-1.txt was downloaded
 Using unsafe HTTP may leak information about what's being downloaded to network administrators/ISP if the content being downloaded is already known or if the content was uploaded from a vulnerable MEGA client using weak encryption keys (those exist and are popular), but using it can reduce issues with MEGA servers since that's the default behavior in other clients.
 
 Limiting the number of connections to 1 will disable download chunking which is known to reduce issues with MEGA servers and, sometimes, result in faster downloads than the default 4 connections.
+
+The integrity of interrupted downloads and existing files will be checked. It may take time depending on your CPU and, mainly, storage speed (it takes more time in a HDD than SSD). In order to disable this check use `--no-verify`.
 
 ### *put*: upload
 
