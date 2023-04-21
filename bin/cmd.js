@@ -6,6 +6,8 @@ process.title = 'MEGAJS'
 // so the ESHint error needs to be ignored.
 
 const findConfig = require('find-config')
+const fs = require('fs')
+
 const configPath = findConfig('megajs-cli.json')
 const config = configPath ? JSON.parse(fs.readFileSync(configPath)) : {}
 
